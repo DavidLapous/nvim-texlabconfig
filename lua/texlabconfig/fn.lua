@@ -8,6 +8,10 @@ local M = {}
 
 function M:inverse_search(filename, line, column)
     column = column or 0
+    if column < 0 then
+        api.nvim_notify("Got invalid column" .. column, vim.log.levels.WARN,{})
+        column = 0
+    end
     local config = require('texlabconfig.config').options
 
     if config.reverse_search_start_cmd() then
