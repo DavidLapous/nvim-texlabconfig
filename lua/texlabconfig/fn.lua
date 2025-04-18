@@ -7,6 +7,7 @@ local utils = require('texlabconfig.utils')
 local M = {}
 
 function M:inverse_search(filename, line, column)
+    print(column)
     column = column or 0
     local config = require('texlabconfig.config').options
 

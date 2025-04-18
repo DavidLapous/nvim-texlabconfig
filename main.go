@@ -73,7 +73,7 @@ func main() {
 		} else if !result {
 			log.Print("Error during inverse_search")
 		} else {
-			log.Printf("Pipe: %s, File: %s, Line: %d, Column", serverName, *file, *line, *column)
+			log.Printf("Pipe: %s, File: %s, Line: %d, Column: %d", serverName, *file, *line, *column)
 			break
 		}
 	}
