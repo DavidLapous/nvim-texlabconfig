@@ -14,6 +14,7 @@ import (
 const (
 	defaultFile   = ""
 	defaultLine   = 0
+	defaultColumn = 0
 	defaultServer = ""
 )
 
@@ -31,6 +32,7 @@ func main() {
 	// No other argument is needed.
 	file := flag.String("file", defaultFile, "Absolute filename [REQUIRED]")
 	line := flag.Int("line", defaultLine, "Line number [REQUIRED] ")
+	column := flag.Int("column", defaultColumn, "Column number ")
 	server := flag.String("server", defaultServer, "Server name (vim.v.servername)")
 	cache_root := flag.String("cache_root", defaultCacheRoot, "Path to nvim-texlabconfig.json file")
 
@@ -66,12 +68,12 @@ func main() {
 		defer v.Close()
 
 		var result bool
-		if err := v.ExecLua("return require('texlabconfig').fn:inverse_search(...)", &result, file, line); err != nil {
+		if err := v.ExecLua("return require('texlabconfig').fn:inverse_search(...)", &result, file, line, column); err != nil {
 			log.Print("Error during ExecLua: ", err)
 		} else if !result {
 			log.Print("Error during inverse_search")
 		} else {
-			log.Printf("Pipe: %s, File: %s, Line: %d", serverName, *file, *line)
+			log.Printf("Pipe: %s, File: %s, Line: %d, Column", serverName, *file, *line, *column)
 			break
 		}
 	}

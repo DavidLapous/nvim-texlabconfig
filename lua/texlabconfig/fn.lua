@@ -6,7 +6,8 @@ local utils = require('texlabconfig.utils')
 
 local M = {}
 
-function M:inverse_search(filename, line)
+function M:inverse_search(filename, line, column)
+    column = column or 0
     local config = require('texlabconfig.config').options
 
     if config.reverse_search_start_cmd() then
@@ -47,7 +48,7 @@ function M:inverse_search(filename, line)
 
     api.nvim_set_current_win(win)
     api.nvim_set_current_tabpage(tab)
-    api.nvim_win_set_cursor(win, { line, 0 })
+    api.nvim_win_set_cursor(win, { line, column })
 
     if config.reverse_search_end_cmd() then
     else
